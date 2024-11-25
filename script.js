@@ -55,15 +55,8 @@ function playGame() {
     
     const humanSelection = getHumanChoice();
     const computerSelection = getComputerChoice();
-    
-    if (humanSelection === null) {
-        console.log('Juego cancelado por entrada inválida.')
-    } else {
-        const play = playRound(humanSelection, computerSelection)
-        console.log(play)
-    }
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
         const humanChoice = getHumanChoice();
         const computerChoice = getComputerChoice();
         console.log(playRound(humanChoice, computerChoice))
@@ -78,4 +71,4 @@ function playGame() {
     }
 }
 
-console.log(playGame())
+playGame(); 
