@@ -1,86 +1,65 @@
 # Piedra, Papel o Tijeras
 
-Un sencillo juego de **Piedra, Papel o Tijeras** implementado en JavaScript. Este proyecto ejecuta un juego entre un humano y la computadora, simulando 5 rondas consecutivas y declarando al ganador final.
+Un sencillo juego de **Piedra, Papel o Tijeras** implementado en JavaScript. Ahora cuenta con una interfaz gráfica para jugar fácilmente desde el navegador. Este proyecto ejecuta un juego entre un humano y la computadora, declarando al ganador al alcanzar 5 puntos.
 
 ## Descripción
 
-El programa utiliza funciones básicas de JavaScript para:
-- Recibir la elección del jugador mediante un `prompt`.
+El programa utiliza JavaScript para:
+
+- Permitir al jugador seleccionar entre "piedra", "papel" o "tijeras" mediante botones.
 - Generar una elección aleatoria para la computadora.
 - Comparar ambas elecciones y determinar al ganador de cada ronda.
-- Llevar un puntaje acumulado entre el jugador y la computadora.
-- Declarar al ganador tras 5 rondas.
+- Mostrar los resultados de cada ronda y el puntaje acumulado en pantalla.
+- Declarar al ganador al alcanzar 5 puntos y reiniciar el juego con un botón.
 
 Este proyecto es ideal para practicar:
-- Condicionales (`if/else if`).
-- Bucles (`for`).
-- Uso de funciones y su alcance.
-- Manejo básico de entradas y salidas en la consola.
+
+- Manipulación del DOM.
+- Uso de eventos en JavaScript.
+- Lógica condicional (`if/else if`).
+- Modularización de funciones.
 
 ## Cómo usar
 
-1. **Clona este repositorio:**
-   ```bash
-   git clone <URL-del-repositorio>
-   cd <nombre-del-repositorio>
-2. **Abre el archivo `index.html` en tu navegador.**
+1. **Abre el archivo `index.html` en tu navegador.**
 
-3. **Sigue las instrucciones en pantalla:**
-   - Ingrese "piedra", "papel" o "tijeras" en el cuadro de diálogo (`prompt`).
-   - Juega 5 rondas consecutivas.
-   - Observa los resultados y el puntaje en la consola.
+2. **Juega:**
+   - Haz clic en "Piedra", "Papel" o "Tijeras".
+   - Observa los resultados y el puntaje actualizado en pantalla.
+   - El juego termina cuando uno de los jugadores alcanza 5 puntos. Usa el botón "Reset game" para reiniciar.
 
 ## Estructura del Código
 
 ### Funciones principales
 
-- **`playGame`:**  
-  Controla el flujo del juego, incluyendo las rondas y el cálculo del puntaje.
+- **`playRound(humanChoice)`:**
+  Controla una ronda del juego:
 
-- **`getComputerChoice`:**  
-  Genera una elección aleatoria para la computadora (`1` = piedra, `2` = papel, `3` = tijeras).
+  - Genera la elección de la computadora.
+  - Compara las elecciones y determina el resultado.
+  - Actualiza el puntaje y muestra los mensajes correspondientes en pantalla.
 
-- **`getHumanChoice`:**  
-  Solicita al jugador una entrada mediante un cuadro de diálogo y valida que sea correcta.
+- **`getComputerChoice()`:**
+  Genera una elección aleatoria para la computadora (1 = piedra, 2 = papel, 3 = tijeras).
 
-- **`playRound`:**  
-  Ejecuta una ronda del juego, compara las elecciones y devuelve el resultado, actualizando los puntajes.
+- **`getChoiceName(choice)`:**
+  Convierte las elecciones numéricas (1, 2, 3) a texto ("piedra", "papel", "tijeras") para construir mensajes más claros.
 
-- **`getChoiceName`:**  
-  Convierte las elecciones numéricas (`1`, `2`, `3`) a texto (`"piedra"`, `"papel"`, `"tijeras"`) para construir mensajes más claros.
+### Manejo de eventos
 
-### Flujo del juego
+- Se añaden `eventListener` a los botones para manejar la elección del jugador y reiniciar el juego.
 
-1. **Inicio:**  
-   Se inicializan las variables de puntaje y se prepara el bucle para 5 rondas.
-2. **Rondas:**  
-   - El jugador elige su jugada.
+## Flujo del juego
+
+1. **Inicio:**
+
+   - Los puntajes y mensajes se inicializan en 0 o vacíos.
+
+2. **Rondas:**
+
+   - El jugador hace clic en un botón para elegir su jugada.
    - La computadora genera su elección.
-   - Se compara quién gana la ronda, actualizando el puntaje.
-3. **Resultado final:**  
-   Tras 5 rondas, se muestra en consola quién ganó el juego.
+   - Se compara quién gana la ronda, actualizando el puntaje y mostrando el resultado en pantalla.
 
-## Ejemplo en Consola
-
-Ronda 1:
-La computadora eligió papel. ¡Ganas!
-Puntaje: Humano = 1 - Computadora = 0
-
-Ronda 2:
-La computadora eligió tijeras. ¡Gana la computadora!
-Puntaje: Humano = 1 - Computadora = 1
-
-...
-
-Resultado final:
-¡Has ganado el juego!
-
-## Mejoras futuras
-
-- Implementar una interfaz gráfica con HTML y CSS para hacerlo más interactivo.
-- Permitir jugar un número personalizado de rondas.
-- Añadir un modo multijugador.
-
-## Autor
-
-Desarrollado por **Gianfranco Palacios** como parte de un proyecto de aprendizaje de JavaScript.
+3. **Fin del juego:**
+   - Al alcanzar 5 puntos, se muestra un mensaje con el ganador y se habilita un botón para reiniciar el juego.
