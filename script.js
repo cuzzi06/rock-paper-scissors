@@ -1,73 +1,78 @@
-function playGame() {
-    function getComputerChoice() {
-        const choice = Math.floor(Math.random() * 3 + 1);
-    
-        return choice
-    }
-    
-    function getHumanChoice() {
-        while(true) {
-        const humanInput = prompt('Piedra, papel o tijeras?', '').toLowerCase(); 
-    
-        if (humanInput == 'piedra') return 1;
-        if (humanInput == 'papel') return 2;
-        if (humanInput == 'tijeras') return 3;
-        alert('Opción inválida. Inténtelo nuevamente.')
-        }
-    }
-    
-    let humanScore = 0;
-    let computerScore = 0; 
-    
-    function playRound(humanChoice, computerChoice) {
-    
-        let resultMessage = ''; 
-    
-        const ROCK = 1;
-        const PAPER = 2;
-        const SCISSORS = 3;
+// Variables globales
 
-        function getChoiceName (choice) {
-            if (choice === 1) return 'piedra';
-            if (choice === 2) return 'papel';
-            if (choice === 3) return 'tijeras'; 
-        }
-    
-        if (humanChoice === computerChoice) {
-            resultMessage =(`Empate! Ambos eligieron ${humanChoice === ROCK ? 'piedra' : humanChoice === PAPER ? 'papel' : 'tijeras'}`)
-        } else if (
-            (computerChoice === ROCK && humanChoice === SCISSORS) ||
-            (computerChoice === PAPER && humanChoice === ROCK) ||
-            (computerChoice === SCISSORS && humanChoice === PAPER)
-        ) {
-            computerScore++; 
-            resultMessage  = `La computadora eligió ${getChoiceName(computerChoice)}. Gana la computadora!`; 
-        } else if (
-            (computerChoice === SCISSORS && humanChoice === ROCK) ||
-            (computerChoice === ROCK && humanChoice === PAPER) ||
-            (computerChoice === PAPER && humanChoice === SCISSORS)
-        ) {
-            humanScore++;
-            resultMessage = `La computadora eligió ${getChoiceName(computerChoice)}. ¡Ganas!`
-        }
-    
-        resultMessage += ` Puntaje: Humano = ${humanScore} - Computadora = ${computerScore}`
-        return resultMessage; 
-    }
+let humanScore = 0;
+let computerScore = 0;
 
-    for (let i = 0; i < 5; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        console.log(playRound(humanChoice, computerChoice))
-    }
+// Referencias al DOM
 
-    if (humanScore > computerScore) {
-        console.log("¡Has ganado el juego!")
-    } else if (computerScore > humanScore) {
-        console.log('La computadora gana el juego.')
-    } else {
-        console.log('¡Es un empate!')
-    }
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+const resultsDiv = document.querySelector("#results");
+const resultMessageDiv = document.querySelector("#resultMessageDiv");
+const scoreDiv = document.querySelector("#scoreDiv");
+// Funciones
+
+//Funcion que genera la elección de la computadora
+function getComputerChoice() {
+  const choice = Math.floor(Math.random() * 3 + 1);
+
+  return choice;
 }
 
-playGame(); 
+//Funcion principal que juega una ronda
+function playRound(humanChoice) {
+  //Llama a la elección de la computadora
+  const computerChoice = getComputerChoice();
+
+  // Constantes para las elecciones
+  const ROCK = 1;
+  const PAPER = 2;
+  const SCISSORS = 3;
+
+  //Función interna para obtener el nombre de la elección
+  function getChoiceName(choice) {
+    if (choice === 1) return "piedra";
+    if (choice === 2) return "papel";
+    if (choice === 3) return "tijeras";
+  }
+
+  //Mensaje del resultado
+  let resultMessage = "";
+
+  if (humanChoice === computerChoice) {
+    resultMessage = `¡Empate! Ambos eligieron ${getChoiceName(humanChoice)}`;
+  } else if (
+    (computerChoice === ROCK && humanChoice === SCISSORS) ||
+    (computerChoice === PAPER && humanChoice === ROCK) ||
+    (computerChoice === SCISSORS && humanChoice === PAPER)
+  ) {
+    computerScore++;
+    resultMessage = `La computadora eligió ${getChoiceName(
+      computerChoice
+    )}. ¡Gana la computadora!`;
+  } else {
+    humanScore++;
+    resultMessage = `La computadora eligió ${getChoiceName(
+      computerChoice
+    )}. ¡Ganas!`;
+  }
+  resultMessageDiv.textContent = resultMessage;
+  scoreDiv.textContent = `Puntaje: Tú = ${humanScore} - Computadora = ${computerScore}`;
+
+  if (humanScore === 5 || computerScore === 5) {
+    const winner =
+      humanScore === 5
+        ? "¡Felicidades! Ganaste el juego."
+        : "Perdiste... La computadora gana el juego.";
+    resultsDiv.textContent = winner;
+
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
+  }
+}
+
+rockButton.addEventListener("click", () => playRound(1));
+paperButton.addEventListener("click", () => playRound(2));
+scissorsButton.addEventListener("click", () => playRound(3));
