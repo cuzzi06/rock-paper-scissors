@@ -11,6 +11,7 @@ const scissorsButton = document.querySelector("#scissors");
 const resultsDiv = document.querySelector("#results");
 const resultMessageDiv = document.querySelector("#resultMessageDiv");
 const scoreDiv = document.querySelector("#scoreDiv");
+const winnerDiv = document.querySelector("#winnerDiv");
 // Funciones
 
 //Funcion que genera la elección de la computadora
@@ -57,15 +58,20 @@ function playRound(humanChoice) {
       computerChoice
     )}. ¡Ganas!`;
   }
+
+  const scoreMessage = `Puntaje: Tú = ${humanScore} - Computadora = ${computerScore}`;
+
   resultMessageDiv.textContent = resultMessage;
-  scoreDiv.textContent = `Puntaje: Tú = ${humanScore} - Computadora = ${computerScore}`;
+  scoreDiv.textContent = scoreMessage;
 
   if (humanScore === 5 || computerScore === 5) {
+    resultMessageDiv.textContent = resultMessage;
+    scoreDiv.textContent = scoreMessage;
     const winner =
       humanScore === 5
         ? "¡Felicidades! Ganaste el juego."
         : "Perdiste... La computadora gana el juego.";
-    resultsDiv.textContent = winner;
+    winnerDiv.textContent = winner;
 
     rockButton.disabled = true;
     paperButton.disabled = true;
