@@ -76,6 +76,33 @@ function playRound(humanChoice) {
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;
+
+    const resetButtonDiv = document.createElement("div");
+    resetButtonDiv.setAttribute("id", "resetButtonDiv");
+
+    const resetButton = document.createElement("button");
+    resetButton.setAttribute("id", "reseteButton");
+
+    resetButton.textContent = "Reset game";
+
+    //Añade el botón al div y el div al DOM
+    resetButtonDiv.appendChild(resetButton);
+    resultsDiv.appendChild(resetButtonDiv);
+
+    resetButton.addEventListener("click", () => {
+      humanScore = 0;
+      computerScore = 0;
+      resultMessage = "";
+      resultMessageDiv.textContent = "";
+      scoreDiv.textContent = "";
+      winnerDiv.textContent = "";
+
+      rockButton.disabled = false;
+      paperButton.disabled = false;
+      scissorsButton.disabled = false;
+
+      resetButton.remove();
+    });
   }
 }
 
